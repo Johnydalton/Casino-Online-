@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #2b2b2b;
+            color: #fff;
+        }
+
+        .roulette-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .roulette-table {
+            display: grid;
+            grid-template-columns: repeat(12, 50px);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .roulette-number {
+            width: 50px;
+            height: 50px;
+            background-color: #444;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        .roulette-wheel {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #444;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .roulette-wheel:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: spin 4s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) translateX(-50%); }
+            100% { transform: rotate(360deg) translateX(-50%); }
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label, select, input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Roulette</h1>
+    <p>Balance: {{ balance }}</p>
+
+    <div class="roulette-container">
+        <div class="roulette-table">
+            {% for i in range(37) %}
+            <div class="roulette-number">{{ i }}</div>
+            {% endfor %}
+        </div>
+        <div class="roulette-wheel">
+            {% if number is not none %}
+            <div class="ball" style="transform: rotate({{ number * 9.73 }}deg) translateX(-50%);"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <form method="post">
+        <label for="bet_type">Bet Type:</label>
+        <select name="bet_type" id="bet_type">
+            <option value="even">Even</option>
+            <option value="odd">Odd</option>
+        </select>
+        <label for="bet_amount">Bet Amount:</label>
+        <input type="number" name="bet_amount" id="bet_amount" required>
+        <button type="submit">Place Bet</button>
+    </form>
+
+    {% if number is not none %}
+    <p>Number: {{ number }}</p>
+    <p>Result: {{ result }}</p>
+    {% endif %}
+</body>
+</html>

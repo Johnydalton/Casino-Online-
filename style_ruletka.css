@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #2b2b2b;
+    color: #fff;
+}
+
+.roulette-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.roulette-table {
+    display: grid;
+    grid-template-columns: repeat(6, 50px);
+    gap: 5px;
+    margin-right: 50px;
+}
+
+.roulette-number {
+    width: 50px;
+    height: 50px;
+    background-color: #444;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.roulette-wheel img {
+    width: 200px;
+    height: 200px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label, select, input, button {
+    margin: 5px;
+}
